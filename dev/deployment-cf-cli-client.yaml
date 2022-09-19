@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cf-cli-resource
+  name: ubuntu
   namespace: deepika
 spec:
   selector:
     matchLabels:
-      app: cf-cli-resource
+      app: ubuntu
   replicas: 1
   template:
     metadata:
       labels:
-        app: cf-cli-resource
+        app: ubuntu
     spec:
       containers:
-      - name: cf-cli-resource
-        image: nulldriver/cf-cli-resource
+      - name: ubuntu
+        image: ubuntu:latest
         ports:
         - containerPort: 8080
