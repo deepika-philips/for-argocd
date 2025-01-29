@@ -30,5 +30,4 @@ jobs:
         env:
           DETECT_API_TOKEN: ${{ secrets.BLACKDUCK_API_TOKEN }}
           DETECT_BLACKDUCK_URL: ${{ secrets.BLACKDUCK_URL }}
-        run: |
-          ./detect.sh --blackduck.url=$DETECT_BLACKDUCK_URL --blackduck.api.token=$DETECT_API_TOKEN --detect.project.name="deepika_argocd" --detect.project.version.name="1.0" --detect.output.path=./blackduck-results
+        run:./etect.sh --blackduck.url=$DETECT_BLACKDUCK_URL --blackduck.api.token=$DETECT_API_TOKEN --detect.project.name="deepika_argocd" --detect.project.version.name="1.0" --detect.output.path=./blackduck-results
