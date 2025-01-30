@@ -2,10 +2,12 @@ name: bd scan
 on: 
   push:
 jobs:
-  msbuild_blackduck_scan:
-    name: msbuild_blackduck_scan
-    uses: philips-internal/blackduck-scan-sbom-action@main
-    with:
-        Blackduck-Project-name: deepika-argocd
-        Blackduck-Project-version: deepika-argocd-v1
-        Blackduck-APItoken: ${{ secrets.BLACKDUCK_API_TOKEN }}
+  detect-scan:
+    runs-on: windows-latest
+    steps:
+      - name: call internal action workflow
+        uses: philips-internal/blackduck-scan-sbom-action@main
+        with:
+          Blackduck-Project-name: deepika-argocd-proj
+          Blackduck-Project-version: deepika-argocd-v1
+          Blackduck-APItoken: ${{ secrets.BLACKDUCK_API_TOKEN }}
