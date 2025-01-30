@@ -2,29 +2,10 @@ name: bd scan
 on: 
   push:
 jobs:
-  ganeshram:
-    runs-on: ubuntu-latest
-    steps:
-      # Step 1: Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Step 2: Set up Java (required for Synopsys Detect)
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-
-      # Step 3: Download Synopsys Detect
-      - name: Download Synopsys Detect
-        run: |
-          curl -s -L -o detect.sh https://detect.synopsys.com/detect.sh
-          chmod +x detect.sh
-
-      # Step 4: Run Synopsys Detect (Black Duck Scan)
-      - name: Run Black Duck Scan
-        env:
-          DETECT_API_TOKEN: ${{ secrets.BLACKDUCK_API_TOKEN }}
-          DETECT_BLACKDUCK_URL: ${{ secrets.BLACKDUCK_URL }}
-        run: ./detect.sh --blackduck.url=$DETECT_BLACKDUCK_URL --blackduck.api.token=$DETECT_API_TOKEN --detect.project.name="MyProject" --detect.project.version.name="1.0" --detect.output.path=./blackduck-results
+  msbuild_blackduck_scan:
+    name: msbuild_blackduck_scan
+    uses: philips-internal/blackduck-scan-sbom-action@main
+      with:
+        Blackduck-Project-name: deepika-argocd
+        Blackduck-Project-version: deepika-argocd-v1
+        Blackduck-APItoken: ${{ secrets.BLACKDUCK_API_TOKEN }}
