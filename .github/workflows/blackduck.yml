@@ -5,9 +5,12 @@ jobs:
   detect-scan:
     runs-on: [self-hosted, Windows, x64, jenkins-ws-551]
     steps:
-      - name: call internal action workflow
-        uses: philips-internal/blackduck-scan-sbom-action@main
+      - name: checkout repo
+        uses: actions/checkout@v1
+      - name: Synopsys Detect
+        uses: blackducksoftware/github-action@v2.2
         with:
-          Blackduck-Project-name: deepika-argocd-proj
-          Blackduck-Project-version: deepika-argocd-v1
-          Blackduck-APItoken: ${{ secrets.BLACKDUCK_API_TOKEN }}
+            version: 8
+            blackduck.url: ${{ secrets.BLACKDUCK_URL }}
+            blackduck.api.token: ${{ secrets.BLACKDUCK_API_TOKEN }}
+            args: --detect.risk.report.pdf=true
