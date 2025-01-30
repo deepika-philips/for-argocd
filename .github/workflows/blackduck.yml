@@ -3,7 +3,7 @@ on:
   push:
 jobs:
   detect-scan:
-    runs-on: windows-latest
+    runs-on: [self-hosted, Windows, x64, jenkins-ws-551]
     steps:
       - name: call internal action workflow
         uses: philips-internal/blackduck-scan-sbom-action@main
