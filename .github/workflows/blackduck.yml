@@ -14,6 +14,7 @@ jobs:
 
       - name: print var
         shell: powershell
-        run: echo ${env:PATH}
+        run: echo ${{ github.workspace }}
 
 # file-path: ${{ github.workspace }}/build/${{ env.FILE_NAME }}.zip
+# run: echo ${env:PATH}
