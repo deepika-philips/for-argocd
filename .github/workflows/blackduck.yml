@@ -8,13 +8,16 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v1
 
-      - name: run detect ps script
-        shell: cmd
-        run: set _JAVA_OPTIONS=-Djava.net.preferIPv4Stack=true
-
-      - name: print var
+      - name: set vars
         shell: powershell
-        run: echo ${{ github.workspace }}
+        run: |
+          set DETECT_LATEST_RELEASE_VERSION=8.11.0
+          set _JAVA_OPTIONS=-Djava.net.preferIPv4Stack=true
+
+      - name: run detect script
+        shell: powershell
+        run: |
+          [Net.ServicePointManager]::SecurityProtocol = 'tls12'; irm https://detect.synopsys.com/detect8.ps1?$(Get-Random) | iex; detect --detect.project.name=proj_name --detect.project.version.name=v1 --detect.source.path='C:\actions-runner\_work\for-argocd\for-argocd' --blackduck.url='https://blackduck.philips.com/' --blackduck.trust.cert=true --blackduck.api.token='ZGExN2ZlMTMtOWIwYS00ZTI3LTk3MTYtNjAzYTdiZjZkMWNkOjQ0OWRkMTlhLTBiZTktNDUwYS05MWZlLTgyZDQ4NWU2ZjQ2Mw==' --detect.code.location.name=proj_name_v1 --detect.npm.include.dev.dependencies=false --detect.tools=DETECTOR --detect.npm.path='C:\Program Files\nodejs\node_modules\npm' --detect.accuracy.required=NONE --detect.npm.dependency.types.excluded=DEV
 
 # file-path: ${{ github.workspace }}/build/${{ env.FILE_NAME }}.zip
 # run: echo ${env:PATH}
